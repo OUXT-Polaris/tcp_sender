@@ -20,6 +20,8 @@
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 
+#include <string>
+
 namespace tcp_sender
 {
 class TcpClient
@@ -28,10 +30,12 @@ public:
   explicit TcpClient(
     boost::asio::io_service & io_service,
     const rclcpp::Logger & logger);
+  void send(const std::string & message);
 
 private:
   void connect();
   void onConnect(const boost::system::error_code & error);
+  void onSend(const boost::system::error_code & error, size_t bytes_transferred);
   boost::asio::io_service & io_service_;
   boost::asio::ip::tcp::socket socket_;
   rclcpp::Logger logger_;

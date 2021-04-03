@@ -14,6 +14,8 @@
 
 #include <tcp_sender/tcp_client.hpp>
 
+#include <string>
+
 namespace tcp_sender
 {
 TcpClient::TcpClient(
@@ -29,6 +31,26 @@ void TcpClient::connect()
   socket_.async_connect(
     boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 31400),
     boost::bind(&TcpClient::onConnect, this, boost::asio::placeholders::error));
+}
+
+void TcpClient::send(const std::string & message)
+{
+  boost::asio::async_write(
+    socket_,
+    boost::asio::buffer(message),
+    boost::bind(
+      &TcpClient::onSend, this,
+      boost::asio::placeholders::error,
+      boost::asio::placeholders::bytes_transferred));
+}
+
+void TcpClient::onSend(const boost::system::error_code & error, size_t)
+{
+  if (error) {
+    RCLCPP_ERROR_STREAM(logger_, "send failed : " << error.message());
+  } else {
+    RCLCPP_INFO_STREAM(logger_, "send correct!");
+  }
 }
 
 void TcpClient::onConnect(const boost::system::error_code & error)
