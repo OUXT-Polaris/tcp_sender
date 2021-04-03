@@ -17,8 +17,10 @@
 namespace tcp_sender
 {
 TcpClient::TcpClient(
-  boost::asio::io_service & io_service)
-: io_service_(io_service), socket_(io_service_)
+  boost::asio::io_service & io_service, const rclcpp::Logger & logger)
+: io_service_(io_service),
+  socket_(io_service_),
+  logger_(logger)
 {
 }
 
@@ -29,12 +31,12 @@ void TcpClient::connect()
     boost::bind(&TcpClient::onConnect, this, boost::asio::placeholders::error));
 }
 
-void onConnect(const boost::system::error_code & error)
+void TcpClient::onConnect(const boost::system::error_code & error)
 {
   if (error) {
-    // std::cout << "connect failed : " << error.message() << std::endl;
+    RCLCPP_ERROR_STREAM(logger_, "connect failed : " << error.message());
   } else {
-    // std::cout << "connected" << std::endl;
+    RCLCPP_INFO_STREAM(logger_, "connected");
   }
 }
 }  // namespace tcp_sender

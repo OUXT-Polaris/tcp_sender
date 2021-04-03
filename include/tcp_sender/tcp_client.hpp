@@ -15,6 +15,8 @@
 #ifndef TCP_SENDER__TCP_CLIENT_HPP_
 #define TCP_SENDER__TCP_CLIENT_HPP_
 
+#include <rclcpp/rclcpp.hpp>
+
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 
@@ -24,13 +26,15 @@ class TcpClient
 {
 public:
   explicit TcpClient(
-    boost::asio::io_service & io_service);
+    boost::asio::io_service & io_service,
+    const rclcpp::Logger & logger);
 
 private:
   void connect();
   void onConnect(const boost::system::error_code & error);
   boost::asio::io_service & io_service_;
   boost::asio::ip::tcp::socket socket_;
+  rclcpp::Logger logger_;
 };
 }  // namespace tcp_sender
 
