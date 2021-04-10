@@ -47,18 +47,18 @@ void TcpClient::send(const std::string & message)
 void TcpClient::onSend(const boost::system::error_code & error, size_t)
 {
   if (error) {
-    RCLCPP_ERROR_STREAM(logger_, "send failed : " << error.message());
+    RCLCPP_ERROR(logger_, "send failed : " + error.message());
   } else {
-    RCLCPP_INFO_STREAM(logger_, "send correct!");
+    RCLCPP_INFO(logger_, "send correct!");
   }
 }
 
 void TcpClient::onConnect(const boost::system::error_code & error)
 {
   if (error) {
-    RCLCPP_ERROR_STREAM(logger_, "connect failed : " << error.message());
+    RCLCPP_ERROR(logger_, "connect failed : " + error.message());
   } else {
-    RCLCPP_INFO_STREAM(logger_, "connected");
+    RCLCPP_INFO(logger_, "connected");
   }
 }
 }  // namespace tcp_sender
