@@ -26,12 +26,12 @@ TcpClient::TcpClient(
 {
 }
 
-void TcpClient::connect()
+void TcpClient::connect(const std::string & address, const int & port)
 {
   socket_.connect(
     boost::asio::ip::tcp::endpoint(
-      boost::asio::ip::address::from_string("127.0.0.1"),
-      31400));
+      boost::asio::ip::address::from_string(address),
+      port));
 }
 
 void TcpClient::send(const std::string & message)
