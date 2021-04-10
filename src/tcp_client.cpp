@@ -36,8 +36,7 @@ void TcpClient::connect()
 
 void TcpClient::send(const std::string & message)
 {
-  const std::string msg = "ping";
   boost::system::error_code error;
-  boost::asio::write(socket, boost::asio::buffer(msg), error);
+  boost::asio::write(socket_, boost::asio::buffer(message), error);
 }
 }  // namespace tcp_sender
