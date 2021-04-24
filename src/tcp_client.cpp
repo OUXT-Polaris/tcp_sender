@@ -26,39 +26,20 @@ TcpClient::TcpClient(
 {
 }
 
-void TcpClient::connect()
+void TcpClient::connect(const std::string & address, const int & port)
 {
-  socket_.async_connect(
-    boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 31400),
-    boost::bind(&TcpClient::onConnect, this, boost::asio::placeholders::error));
+  socket_.connect(
+    boost::asio::ip::tcp::endpoint(
+      boost::asio::ip::address::from_string(address),
+      port));
 }
 
 void TcpClient::send(const std::string & message)
 {
-  boost::asio::async_write(
-    socket_,
-    boost::asio::buffer(message),
-    boost::bind(
-      &TcpClient::onSend, this,
-      boost::asio::placeholders::error,
-      boost::asio::placeholders::bytes_transferred));
-}
-
-void TcpClient::onSend(const boost::system::error_code & error, size_t)
-{
+  boost::system::error_code error;
+  boost::asio::write(socket_, boost::asio::buffer(message), error);
   if (error) {
-    RCLCPP_ERROR(logger_, "send failed : " + error.message());
-  } else {
-    RCLCPP_INFO(logger_, "send correct!");
-  }
-}
-
-void TcpClient::onConnect(const boost::system::error_code & error)
-{
-  if (error) {
-    RCLCPP_ERROR(logger_, "connect failed : " + error.message());
-  } else {
-    RCLCPP_INFO(logger_, "connected");
+    RCLCPP_ERROR(logger_, error.message());
   }
 }
 }  // namespace tcp_sender

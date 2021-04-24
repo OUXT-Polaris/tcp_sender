@@ -30,10 +30,10 @@ public:
   explicit TcpClient(
     boost::asio::io_service & io_service,
     const rclcpp::Logger & logger);
+  void connect(const std::string & address, const int & port);
   void send(const std::string & message);
 
 private:
-  void connect();
   void onConnect(const boost::system::error_code & error);
   void onSend(const boost::system::error_code & error, size_t bytes_transferred);
   boost::asio::io_service & io_service_;
