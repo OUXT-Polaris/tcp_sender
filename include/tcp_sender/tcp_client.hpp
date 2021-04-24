@@ -31,11 +31,9 @@ public:
     boost::asio::io_service & io_service,
     const rclcpp::Logger & logger);
   void connect(const std::string & address, const int & port);
-  void send(const std::string & message);
+  bool send(const std::string & message);
 
 private:
-  void onConnect(const boost::system::error_code & error);
-  void onSend(const boost::system::error_code & error, size_t bytes_transferred);
   boost::asio::io_service & io_service_;
   boost::asio::ip::tcp::socket socket_;
   rclcpp::Logger logger_;
