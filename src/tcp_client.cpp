@@ -12,26 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <tcp_sender/tcp_client.hpp>
-
 #include <string>
+#include <tcp_sender/tcp_client.hpp>
 
 namespace tcp_sender
 {
-TcpClient::TcpClient(
-  boost::asio::io_service & io_service, const rclcpp::Logger & logger)
-: io_service_(io_service),
-  socket_(io_service_),
-  logger_(logger)
+TcpClient::TcpClient(boost::asio::io_service & io_service, const rclcpp::Logger & logger)
+: io_service_(io_service), socket_(io_service_), logger_(logger)
 {
 }
 
 void TcpClient::connect(const std::string & address, const int & port)
 {
   socket_.connect(
-    boost::asio::ip::tcp::endpoint(
-      boost::asio::ip::address::from_string(address),
-      port));
+    boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string(address), port));
 }
 
 bool TcpClient::send(const std::string & message)
