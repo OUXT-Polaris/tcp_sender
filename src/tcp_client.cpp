@@ -38,4 +38,16 @@ bool TcpClient::send(const std::string & message)
   }
   return true;
 }
+
+bool TcpClient::send(const uint8_t * message, size_t length)
+{
+  boost::system::error_code error;
+  boost::asio::write(socket_, boost::asio::buffer(message, length), error);
+  if (error) {
+    RCLCPP_ERROR(logger_, error.message().c_str());
+    return false;
+  }
+  return true;
+}
+
 }  // namespace tcp_sender

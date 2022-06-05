@@ -28,6 +28,7 @@ public:
   explicit TcpClient(boost::asio::io_service & io_service, const rclcpp::Logger & logger);
   void connect(const std::string & address, const int & port);
   bool send(const std::string & message);
+  bool send(const uint8_t * message, size_t length);
 
 private:
   boost::asio::io_service & io_service_;
