@@ -50,4 +50,4 @@ bool TcpClient::send(const uint8_t * message, size_t length)
   return true;
 }
 
-} // namespace tcp_sender
+}  // namespace tcp_sender

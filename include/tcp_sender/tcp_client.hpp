@@ -35,6 +35,6 @@ private:
   boost::asio::ip::tcp::socket socket_;
   rclcpp::Logger logger_;
 };
-} // namespace tcp_sender
+}  // namespace tcp_sender
 
-#endif // TCP_SENDER__TCP_CLIENT_HPP_
+#endif  // TCP_SENDER__TCP_CLIENT_HPP_
