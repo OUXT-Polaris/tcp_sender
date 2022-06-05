@@ -22,18 +22,19 @@
 
 namespace tcp_sender
 {
-class TcpClient
-{
-public:
-  explicit TcpClient(boost::asio::io_service & io_service, const rclcpp::Logger & logger);
-  void connect(const std::string & address, const int & port);
-  bool send(const std::string & message);
+  class TcpClient
+  {
+  public:
+    explicit TcpClient(boost::asio::io_service &io_service, const rclcpp::Logger &logger);
+    void connect(const std::string &address, const int &port);
+    bool send(const std::string &message);
+    bool send(const uint8_t *message, size_t length);
 
-private:
-  boost::asio::io_service & io_service_;
-  boost::asio::ip::tcp::socket socket_;
-  rclcpp::Logger logger_;
-};
-}  // namespace tcp_sender
+  private:
+    boost::asio::io_service &io_service_;
+    boost::asio::ip::tcp::socket socket_;
+    rclcpp::Logger logger_;
+  };
+} // namespace tcp_sender
 
-#endif  // TCP_SENDER__TCP_CLIENT_HPP_
+#endif // TCP_SENDER__TCP_CLIENT_HPP_
