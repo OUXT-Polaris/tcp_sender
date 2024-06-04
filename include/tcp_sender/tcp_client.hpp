@@ -16,7 +16,6 @@
 #define TCP_SENDER__TCP_CLIENT_HPP_
 
 #include <boost/asio.hpp>
-#include <boost/bind.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <string>
 
